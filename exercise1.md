@@ -45,3 +45,5 @@ Usually, in making such decision, we should consider:
 * **Security:** Self-hosted CI/CD pipelines can be more secure than cloud-based CI/CD pipelines, but we are responsible for managing the security of the infrastructure. Cloud-based CI/CD providers typically have robust security measures in place.
 
 Lastly, our level of technical expertise matters as well. Since setting up a self-hosted environment requires high level of expertise, we may default to a cloud-hosted service.
+
+To trigger GitHub Actions workflow
