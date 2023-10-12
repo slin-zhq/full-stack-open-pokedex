@@ -6,7 +6,8 @@ describe('Pokedex', function() {
   })
 
   it('pokemon page can be navigated to', function () {
-    cy.visit('http://localhost:5001/pokemon/charizard')
+    cy.visit('http://localhost:5001')
+    cy.contains('charizard').click()
     cy.contains('blaze')
   })
 })
