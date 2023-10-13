@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for slinzhq-fso-pokedex on 2023-10-13T20:41:15+06:30
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "slinzhq-fso-pokedex"
+primary_region = "sin"
+
+[http_service]
+  internal_port = 5001
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[deploy]
+	release_command = "npm run build"
+
+[processes]
+	app = "node app.js"
+
+[build]
+	[build.args]
+		NODE_VERSION = "16.20.2"
