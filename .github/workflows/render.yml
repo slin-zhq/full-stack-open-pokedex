@@ -16,6 +16,7 @@ jobs:
         run: curl ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
   tag_release:
+    if: ${{ github.ref == 'refs/heads/master' }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
     steps:
@@ -23,3 +24,4 @@ jobs:
         uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
