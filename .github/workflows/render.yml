@@ -5,7 +5,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
 
 jobs:
   simple_deployment_pipeline:
@@ -16,10 +16,17 @@ jobs:
         run: curl ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
   tag_release:
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/master' && github.event.pull_request.merged == true }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: '0'
+
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.64.0
         env:
