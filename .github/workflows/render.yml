@@ -16,7 +16,7 @@ jobs:
         run: curl ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
   tag_release:
-    if: ${{ github.ref == 'refs/heads/master'}}
+    if: ${{ github.ref == 'refs/heads/master' || github.event_name == 'push' }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
     permissions:
