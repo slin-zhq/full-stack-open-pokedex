@@ -26,6 +26,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+
+      - name: Checking whether version bump needs to be skipped
+        env:
+          COMMIT_MESSAGES_CONTAINS_SKIP_KEYWORD: ${{ !contains(join(toJson(github.event.commits.*.message), ','), '#skip') }}
+        run: echo "Commit messages contains skip keyowrd:\ $COMMIT_MESSAGES_CONTAINS_SKIP_KEYWORD"
+
       - name: Bump version and push tag
         if: ${{ !contains(join(toJson(github.event.commits.*.message), ','), '#skip') }}
         uses: anothrNick/github-tag-action@1.64.0
@@ -34,3 +40,4 @@ jobs:
           DEFAULT_BUMP: patch
           INITIAL_VERSION: 0.13.13
           WITH_V: true
+					
