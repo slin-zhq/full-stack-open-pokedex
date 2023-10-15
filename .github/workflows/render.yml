@@ -15,6 +15,22 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         run: curl ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
+      - name: Render deployment succeeded
+        if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: info
+          details: Render deployment succeeded!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Render deployment failed
+        if: ${{ failure() }}
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: error
+          details: Render deployment failed :(
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
   tag_release:
     if: ${{ github.ref == 'refs/heads/master' }}
     needs: [simple_deployment_pipeline]
@@ -40,19 +56,3 @@ jobs:
           DEFAULT_BUMP: patch
           INITIAL_VERSION: 0.13.13
           WITH_V: true
-
-      - name: Render deployment succeeded
-        if: ${{ success() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          severity: info
-          details: Render deployment succeeded!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
-      - name: Render deployment failed
-        if: ${{ failure() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          severity: error
-          details: Render deployment failed :(
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
