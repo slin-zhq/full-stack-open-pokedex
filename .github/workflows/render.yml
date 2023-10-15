@@ -29,8 +29,8 @@ jobs:
 
       - name: Checking whether version bump needs to be skipped
         env:
-          COMMIT_MESSAGES_CONTAINS_SKIP_KEYWORD: ${{ !contains(join(toJson(github.event.commits.*.message), ','), '#skip') }}
-        run: echo "Commit messages contains skip keyowrd:\ $COMMIT_MESSAGES_CONTAINS_SKIP_KEYWORD"
+          COMMIT_MESSAGES_CONTAIN_SKIP_KEYWORD: ${{ contains(join(toJson(github.event.commits.*.message), ','), '#skip') }}
+        run: echo "Commit messages contains skip keyowrd:\ $COMMIT_MESSAGES_CONTAIN_SKIP_KEYWORD"
 
       - name: Bump version and push tag
         if: ${{ !contains(join(toJson(github.event.commits.*.message), ','), '#skip') }}
