@@ -40,4 +40,3 @@ jobs:
           DEFAULT_BUMP: patch
           INITIAL_VERSION: 0.13.13
           WITH_V: true
-					
