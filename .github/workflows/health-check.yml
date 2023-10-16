@@ -24,7 +24,6 @@ jobs:
       - name: Check application health
         uses: jtalk/url-health-check-action@v3
         with:
-          url: localhost:5001/health
-          # Wait for the application to be ready before checking its health.
-          start: npm run start-prod
-          wait-on: http://localhost:5001
+          url: http://localhost:5001/health
+      - name: Stop the server
+        run: killall node
