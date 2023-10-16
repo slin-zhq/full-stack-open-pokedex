@@ -1,0 +1,23 @@
+name: Health Check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, closed]
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check application health
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: https://slinzhq-fso-pokedex.onrender.com/health
+
+      - name: Fail workflow if health check fails
+        if: ${{ steps.health-check.outputs.status != 200 }}
+        run: exit 1
