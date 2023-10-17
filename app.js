@@ -10,6 +10,7 @@ app.get('/health', (req, res) => {
   // throw 'error...'
   // eslint-disable-next-line no-unreachable
   res.status(500)
+  res.send('An internal server error occurred.')
 })
 
 app.get('/version', (req, res) => {
