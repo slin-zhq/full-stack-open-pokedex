@@ -7,10 +7,9 @@ const PORT = process.env.PORT || 5001
 app.use(express.static('dist'))
 
 app.get('/health', (req, res) => {
-  // throw 'error...'
-  // eslint-disable-next-line no-unreachable
-  res.status(500)
-  res.send('An internal server error occurred.')
+  // res.status(500)
+  // res.send('An internal server error occurred.')
+  res.send('ok')
 })
 
 app.get('/version', (req, res) => {
