@@ -21,6 +21,8 @@ jobs:
         run: npm run build
       - name: Start the application
         run: npm run start-prod
+      - name: Wait for application to start
+        run: wait-on http://localhost:5001/health
       - name: Check application health
         uses: jtalk/url-health-check-action@v3
         with:
